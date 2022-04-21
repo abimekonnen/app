@@ -23,7 +23,7 @@
                 <a style="" href="atm" class="list-group-item  bg-secondary text-white  sideLink">Register</a>
            </div>
         </section>
-        <section id="content" class=" text-white"  style="height: 100vmin; width: 88%; margin-top: -100vmin; margin-left: 12%;background-color: rgba(216, 216, 216, 0.39)">
+        <section id="content" class=" text-white"  style="width: 88%; margin-left: 12%;background-color: rgba(216, 216, 216, 0.39)">
                 <div id="registerForm" style="padding-top: 2%; padding-left: 5%; padding-right: 5%; padding-bottom: 5%;">
                   {{-- {{ route(AtmControler.store) } --}}
                     @if (session()->has('success'))
@@ -68,7 +68,8 @@
                             </select>
                         </div> --}}
                         <div class="col-md-2" style="padding-top: 2%;">
-                            <button type="submit" class="btn btn-success">Save</button>
+                          <label for="inputState" class="form-label text-primary"></label>
+                          <button type="submit" class="btn btn-success">Save</button>
                         </div>
                       </form>
                 </div>
@@ -117,13 +118,14 @@
                               <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
                                   <table class="table">
                                   <tbody >
-                                  @foreach ($incidents as $key => $incident)
+                                    
+                                  @foreach ($incidents as $index => $incident)
                                       @if ($incident->created_at->format('d-m-y') === date('d-m-y'))
                                         <form class="" name="updateDelete" action="atm/{{ $incident->id }}" method="POST" enctype="multipart/form-data" >
                                             @csrf 
                                             @method('PUT')
                                           <tr>
-                                             <th  style="width: 5%;">{{ $incident->id  }}</th>
+                                             <th  style="width: 5%;">{{ 1 + $index   }}</th>
                                               {{-- @foreach ($atms as $atm )
                                                 @if ($atm->id === $incident->atm_id)
                                                   <td style="width: 20%;">{{ $atm->name }}</td>
@@ -177,13 +179,13 @@
                         <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
                             <table class="table">
                             <tbody >
-                            @foreach ($incidents as $key => $incident)
+                            @foreach ($incidents as $index => $incident)
                                 @if ($incident->created_at->format('d-m-y') === date('d-m-y',strtotime("-1 days")))
                                   <form class="" name="updateDelete" action="atm/{{ $incident->id }}" method="POST" enctype="multipart/form-data" >
                                       @csrf 
                                       @method('PUT')
                                     <tr>
-                                       <th  style="width: 5%;">{{ $incident->id  }}</th>
+                                       <th  style="width: 5%;">{{ 1 + $index   }}</th>
                                         <td style="width: 20%;">{{ $incident->name }}</td>
                                         <td style="width: 20%;">{{ $incident->problem }}</td>
                                         <td style="width: 20%; padding-right: 5%">
@@ -232,13 +234,13 @@
                         <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
                             <table class="table">
                             <tbody >
-                            @foreach ($incidents as $key => $incident)
+                            @foreach ($incidents as $index => $incident)
                                 @if ($incident->created_at->format('d-m-y') === date('d-m-y',strtotime("-2 days")))
                                   <form class="" name="updateDelete" action="atm/{{ $incident->id }}" method="POST" enctype="multipart/form-data" >
                                       @csrf 
                                       @method('PUT')
                                     <tr>
-                                       <th  style="width: 5%;">{{ $incident->id  }}</th>
+                                       <th  style="width: 5%;">{{ 1 + $index }}</th>
                                         <td style="width: 20%;">{{ $incident->name }}</td>
                                         <td style="width: 20%;">{{ $incident->problem }}</td>
                                         <td style="width: 20%; padding-right: 5%">
@@ -287,13 +289,13 @@
                         <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
                             <table class="table">
                             <tbody >
-                            @foreach ($incidents as $key => $incident)
+                            @foreach ($incidents as $index => $incident)
                                 @if ($incident->created_at->format('d-m-y') === date('d-m-y',strtotime("-3 days")))
                                   <form class="" name="updateDelete" action="atm/{{ $incident->id }}" method="POST" enctype="multipart/form-data" >
                                       @csrf 
                                       @method('PUT')
                                     <tr>
-                                       <th  style="width: 5%;">{{ $incident->id  }}</th>
+                                       <th  style="width: 5%;">{{ 1 + $index   }}</th>
                                         <td style="width: 20%;">{{ $incident->name }}</td>
                                         <td style="width: 20%;">{{ $incident->problem }}</td>
                                         <td style="width: 20%; padding-right: 5%">
@@ -327,7 +329,7 @@
                                     </div>  
                         </div>
                         <div class="tab-pane fade show {{ $searchActive }}" id="selectDate" role="tabpanel" aria-labelledby="selectDate-tab" style="padding-top: 2%;">
-                          <a class="btn btn-success" href="export">export</a>
+                          {{-- <a class="btn btn-success" href="export">export</a> --}}
                             <form class="input-group" action="atm" method="GET" style="margin-bottom: 2%">
                              <div class="row">
                               <div class="col-md-6" style="" >
@@ -357,12 +359,12 @@
                                     <div class="overflow-auto "  style="height: 54vmin; margin-bottom: 2%" >
                                         <table class="table" >
                                         <tbody >
-                                          @foreach ($incidents as $key => $incident)
+                                          @foreach ($incidents as  $index => $incident)
                                            <form class="" name="updateDelete" action="atm/{{ $incident->id }}" method="POST" enctype="multipart/form-data" >
                                             @csrf 
                                             @method('PUT')
                                             <tr>
-                                              <th  style="width: 5%;">{{ $incident->id  }}</th>
+                                              <th  style="width: 5%;">{{ 1 + $index  }}</th>
                                               <td style="width: 20%;">{{ $incident->name }}</td>
                                               <td style="width: 15%;">{{ $incident->problem }}</td>
                                               <td style="width: 14%; padding-right: 5%">
@@ -384,8 +386,7 @@
                                                 <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
                                               </td>
                                               <td style="width: 20%;">
-                                                <button type="button"  id="updateButton" class="btn-sm btn-outline-success"
-                                                onclick="handleUpdate({{ $incident->id}},'{{ $incident->name }}')">Update</button>
+                                                <button type="submint"  id="updateButton" class="btn-sm btn-outline-success">Update</button>
                                                 <button id="deleteButton" type="button" class="btn-sm btn-outline-danger" 
                                                 onclick="handleDelete({{ $incident->id}},'{{ $incident->name }}','{{ $incident->problem }}')">delete</button>   
                                               </td>
@@ -424,7 +425,7 @@
        </div> 
 
          <!-- Modal Update -->
-       <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+       {{-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -444,7 +445,7 @@
             </form>
           </div>
         </div>
-       </div> 
+       </div>  --}}
     </main>
     <footer>
         <script src="{{ url('js/bootstrap.min.js') }}"></script>
@@ -465,19 +466,28 @@
             //   });
             // });
           }
-          function handleUpdate(id,name){
-            var form = document.getElementById('updateIncidentForm');
-            var message = document.getElementById('updateMessage');
-            message.innerText = '  ' + name ;
-            form.action ='atm/' + id;
-            console.log(form);
-            $('#updateModal').modal('show');
-            // $(function () {
-            //   $("#deleteButton").click(function () {
-            //       $("#deleteModal").modal("show");
-            //   });
-            // });
+          var sidebar = document.getElementById("side");
+          var maincotaint = document.getElementById("content");
+          window.onload = function() {
+            h = window.innerHeight;
+            sidebar.style.height = h.toString() + "px";
+            maincotaint.style.marginTop = "-"+h.toString() + "px";
+            maincotaint.style.height = h.toString() + "px";
           }
+            window.addEventListener("resize", function(event) {
+              h = window.innerHeight;
+              sidebar.style.height = h.toString() + "px";
+              maincotaint.style.marginTop = "-"+h.toString() + "px";
+              maincotaint.style.height = h.toString() + "px";
+            })
+          // function handleUpdate(id,name){
+          //   var form = document.getElementById('updateIncidentForm');
+          //   var message = document.getElementById('updateMessage');
+          //   message.innerText = '  ' + name ;
+          //   form.action ='atm/' + id;
+          //   console.log(form);
+          //   $('#updateModal').modal('show');
+          // }
         </script>
     </footer>
 </body>
