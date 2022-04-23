@@ -26,17 +26,17 @@ class IncidentController extends Controller
         // $searchStatus=false;
         // $one=false;
         //dd(date('d-m-y',strtotime("-3 days")));
-        $search = request()->query('query');
+        $searchQuery = request()->query('query');
         $date = request()->input('date');
         $atms  = Atm::all();
       
-        if($search){
+        if($searchQuery){
             //dd(request()->query('query'));
             $search="true";
             $one="false";
             $searchActive =" active";
             $oneActive =" ";
-            $incidents  = Incident::where('name','LIKE',"%{$search}%")->get();
+            $incidents  = Incident::where('name','LIKE',"%{$searchQuery}%")->get();
             return view('atm',[
                 'incidents'=>$incidents,
                 'atms' => $atms,
