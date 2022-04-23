@@ -40,7 +40,7 @@ class IncidentController extends Controller
             return view('atm',[
                 'incidents'=>$incidents,
                 'atms' => $atms,
-                'searchStatus' =>$searchStatus,
+                'search' =>$search,
                 'one' =>$one,
                 'searchActive' =>$searchActive,
                 'oneActive' =>$oneActive,
@@ -54,7 +54,7 @@ class IncidentController extends Controller
             return view('atm',[
                 'incidents'=>$incidents,
                 'atms' => $atms,
-                'searchStatus' =>$search,
+                'search' =>$search,
                 'one' =>$one,
                 'searchActive' =>$searchActive,
                 'oneActive' =>$oneActive,
