@@ -53,6 +53,10 @@
                             <option selected>Aptra</option>
                             <option>Dispenser</option>
                             <option>Card Reader</option>
+                            <option>1st Casset</option>
+                            <option>2nd Casset</option>
+                            <option>3rd Casset</option>
+                            <option>Medisa Indicater</option>
                             <option>Screen</option>
                           </select>
                         </div>
@@ -424,7 +428,7 @@
           </div>
        </div> 
 
-         <!-- Modal Update -->
+      <!-- Modal Update -->
        {{-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
