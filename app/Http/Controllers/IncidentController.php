@@ -168,8 +168,6 @@ class IncidentController extends Controller
 
         $this->validate($request,[
             'ticket' => 'required',
-            // 'name'=>'required',
-            // 'problem'=>'required',
             'status'=>'required'
         ]);  
         $incidents = Incident::where('id',$id)->update(

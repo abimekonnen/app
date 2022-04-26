@@ -57,6 +57,8 @@
                             <option>2nd Casset</option>
                             <option>3rd Casset</option>
                             <option>Medisa Indicater</option>
+                            <option>Power Problem</option>
+                            <option>Pc Core</option>
                             <option>Screen</option>
                           </select>
                         </div>
@@ -100,6 +102,11 @@
                               {{ date('d-m-y',strtotime("-3 days"));}}
                             </button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="five-tab" data-bs-toggle="tab" data-bs-target="#five" type="button" role="tab" aria-controls="five" aria-selected="false">
+                            {{ date('d-m-y',strtotime("-4 days"));}}
+                          </button>
+                      </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link {{ $searchActive }}" id="selectDate-tab" data-bs-toggle="tab" data-bs-target="#selectDate" type="button" role="tab" aria-controls="selectDate" aria-selected="{{ $search }}">Search</button>
                         </li>
@@ -157,7 +164,7 @@
                                               <td style="width: 20%;">
                                                 <button type="submit" class="btn-sm btn-outline-success">Update</button>
                                                 <button id="deleteButton" type="button" class="btn-sm btn-outline-danger" 
-                                                onclick="handleDelete({{ $incident->id }})">delete</button>   
+                                                onclick="handleDelete({{ $incident->id}},'{{ $incident->name }}','{{ $incident->problem }}')">delete</button>   
                                               </td>
                                           </tr>
                                         </form>                                      
@@ -212,7 +219,7 @@
                                         <td style="width: 20%;">
                                           <button type="submit" class="btn-sm btn-outline-success">Update</button>
                                           <button id="deleteButton" type="button" class="btn-sm btn-outline-danger" 
-                                          onclick="handleDelete({{ $incident->id }})">delete</button>   
+                                          onclick="handleDelete({{ $incident->id}},'{{ $incident->name }}','{{ $incident->problem }}')">delete</button>   
                                         </td>
                                     </tr>
                                   </form>                                      
@@ -267,7 +274,7 @@
                                         <td style="width: 20%;">
                                           <button type="submit" class="btn-sm btn-outline-success">Update</button>
                                           <button id="deleteButton" type="button" class="btn-sm btn-outline-danger" 
-                                          onclick="handleDelete({{ $incident->id }})">delete</button>   
+                                          onclick="handleDelete({{ $incident->id}},'{{ $incident->name }}','{{ $incident->problem }}')">delete</button>   
                                         </td>
                                     </tr>
                                   </form>                                      
@@ -289,8 +296,8 @@
                                 <th scope="col" style="width: 20%;">Update Status</th>
                               </tr>
                             </thead>
-                        </table>
-                        <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
+                          </table>
+                          <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
                             <table class="table">
                             <tbody >
                             @foreach ($incidents as $index => $incident)
@@ -322,7 +329,7 @@
                                         <td style="width: 20%;">
                                           <button type="submit" class="btn-sm btn-outline-success">Update</button>
                                           <button id="deleteButton" type="button" class="btn-sm btn-outline-danger" 
-                                          onclick="handleDelete({{ $incident->id }})">delete</button>   
+                                          onclick="handleDelete({{ $incident->id}},'{{ $incident->name }}','{{ $incident->problem }}')">delete</button>   
                                         </td>
                                     </tr>
                                   </form>                                      
@@ -330,7 +337,62 @@
                               @endforeach 
                               </tbody>
                             </table>
-                                    </div>  
+                          </div>  
+                        </div>
+                        <div class="tab-pane fade" id="five" role="tabpanel" aria-labelledby="five-tab" style="padding-top: 2%;">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col"  style="width: 5%;">No</th>
+                                <th scope="col" style="width: 20%;">ATM</th>
+                                <th scope="col" style="width: 20%;">Problem</th>
+                                <th scope="col" style="width: 20%;">Status</th>
+                                <th scope="col" style="width: 15%;">Ticket ID</th>
+                                <th scope="col" style="width: 20%;">Update Status</th>
+                              </tr>
+                            </thead>
+                          </table>
+                          <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
+                            <table class="table">
+                            <tbody >
+                            @foreach ($incidents as $index => $incident)
+                                @if ($incident->created_at->format('d-m-y') === date('d-m-y',strtotime("-4 days")))
+                                  <form class="" name="updateDelete" action="atm/{{ $incident->id }}" method="POST" enctype="multipart/form-data" >
+                                      @csrf 
+                                      @method('PUT')
+                                    <tr>
+                                       <th  style="width: 5%;">{{ 1 + $index   }}</th>
+                                        <td style="width: 20%;">{{ $incident->name }}</td>
+                                        <td style="width: 20%;">{{ $incident->problem }}</td>
+                                        <td style="width: 20%; padding-right: 5%">
+                                          <select id="status" name="status" class="form-select">
+                                            @if( $incident->status == "not solved"){
+                                              <option selected>Not Solved</option>
+                                              <option>Solved</option>
+                                            }
+                                            @endif
+                                            @if( $incident->status == "solved"){
+                                              <option selected>Solved </option>
+                                              <option>Not Solved</option>
+                                            } 
+                                            @endif
+                                          </select>
+                                        </td>
+                                        <td scope="col" style="width: 15%;">
+                                          <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
+                                        </td>
+                                        <td style="width: 20%;">
+                                          <button type="submit" class="btn-sm btn-outline-success">Update</button>
+                                          <button id="deleteButton" type="button" class="btn-sm btn-outline-danger" 
+                                          onclick="handleDelete({{ $incident->id}},'{{ $incident->name }}','{{ $incident->problem }}')">delete</button>   
+                                        </td>
+                                    </tr>
+                                  </form>                                      
+                                @endif  
+                              @endforeach 
+                              </tbody>
+                            </table>
+                          </div>  
                         </div>
                         <div class="tab-pane fade show {{ $searchActive }}" id="selectDate" role="tabpanel" aria-labelledby="selectDate-tab" style="padding-top: 2%;">
                           {{-- <a class="btn btn-success" href="export">export</a> --}}
@@ -390,7 +452,7 @@
                                                 <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
                                               </td>
                                               <td style="width: 20%;">
-                                                <button type="submint"  id="updateButton" class="btn-sm btn-outline-success">Update</button>
+                                                <button type="submit"  id="updateButton" class="btn-sm btn-outline-success">Update</button>
                                                 <button id="deleteButton" type="button" class="btn-sm btn-outline-danger" 
                                                 onclick="handleDelete({{ $incident->id}},'{{ $incident->name }}','{{ $incident->problem }}')">delete</button>   
                                               </td>
@@ -429,7 +491,7 @@
        </div> 
 
       <!-- Modal Update -->
-       {{-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+       <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -442,6 +504,8 @@
             <form action="" method="POST" id="updateIncidentForm">
               @csrf 
               @method('PUT')
+              <input type="text" class="form-control" id="ticketUpdate" name="ticket" value="">
+              <input type="text" class="form-control" id="statusUpdate" name="status" value="">
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">No Go back</button>
                 <button type="submit  " class="btn btn-outline-danger">Yes Update</button>
@@ -449,7 +513,7 @@
             </form>
           </div>
         </div>
-       </div>  --}}
+       </div> 
     </main>
     <footer>
         <script src="{{ url('js/bootstrap.min.js') }}"></script>
@@ -484,14 +548,21 @@
               maincotaint.style.marginTop = "-"+h.toString() + "px";
               maincotaint.style.height = h.toString() + "px";
             })
-          // function handleUpdate(id,name){
-          //   var form = document.getElementById('updateIncidentForm');
-          //   var message = document.getElementById('updateMessage');
-          //   message.innerText = '  ' + name ;
-          //   form.action ='atm/' + id;
-          //   console.log(form);
-          //   $('#updateModal').modal('show');
-          // }
+          function handleUpdate(id,ticket,status){
+            var form = document.getElementById('updateIncidentForm');
+            var message = document.getElementById('updateMessage');
+            var ticketUpdate = document.getElementById('ticketUpdate');
+            var statusUpdate = document.getElementById('statusUpdate');
+            // var idUpdate = document.getElementById('idUpdate');
+            message.innerText = '  ' + name ;
+            ticketUpdate.value = ticket;
+            statusUpdate.value = status;
+            // idUpdate.value = id;
+            form.action ='atm/' + id;
+            console.log(form);
+            console.log(ticketUpdate.value);
+            $('#updateModal').modal('show');
+          }
         </script>
     </footer>
 </body>
