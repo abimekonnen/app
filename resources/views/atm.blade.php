@@ -52,6 +52,7 @@
                           <select id="problem" name="problem" class="form-select">
                             <option selected>Aptra</option>
                             <option>Dispenser</option>
+                            <option>Dispenser belt</option>
                             <option>Card Reader</option>
                             <option>1st Casset</option>
                             <option>2nd Casset</option>
@@ -159,7 +160,7 @@
                                                 </select>
                                               </td>
                                               <td scope="col" style="width: 15%;">
-                                                <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
+                                                <input type="text" class="form-control" id="ticket" readonly name="ticket" value="{{ $incident->ticket }}">
                                               </td>
                                               <td style="width: 20%;">
                                                 <button type="submit" class="btn-sm btn-outline-success">Update</button>
@@ -214,7 +215,7 @@
                                           </select>
                                         </td>
                                         <td scope="col" style="width: 15%;">
-                                          <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
+                                          <input type="text" class="form-control" id="ticket" readonly name="ticket" value="{{ $incident->ticket }}">
                                         </td>
                                         <td style="width: 20%;">
                                           <button type="submit" class="btn-sm btn-outline-success">Update</button>
@@ -269,7 +270,7 @@
                                           </select>
                                         </td>
                                         <td scope="col" style="width: 15%;">
-                                          <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
+                                          <input type="text" class="form-control" id="ticket" name="ticket" readonly value="{{ $incident->ticket }}">
                                         </td>
                                         <td style="width: 20%;">
                                           <button type="submit" class="btn-sm btn-outline-success">Update</button>
@@ -324,7 +325,7 @@
                                           </select>
                                         </td>
                                         <td scope="col" style="width: 15%;">
-                                          <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
+                                          <input type="text" class="form-control" id="ticket" name="ticket" readonly value="{{ $incident->ticket }}">
                                         </td>
                                         <td style="width: 20%;">
                                           <button type="submit" class="btn-sm btn-outline-success">Update</button>
@@ -379,7 +380,7 @@
                                           </select>
                                         </td>
                                         <td scope="col" style="width: 15%;">
-                                          <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
+                                          <input type="text" class="form-control" id="ticket" name="ticket" readonly value="{{ $incident->ticket }}">
                                         </td>
                                         <td style="width: 20%;">
                                           <button type="submit" class="btn-sm btn-outline-success">Update</button>
@@ -449,7 +450,7 @@
                                               </td>
                                               <td style="width: 15%;">{{ $incident->created_at->format('d-m-y') }}</td>
                                               <td scope="col" style="width: 10%;">
-                                                <input type="text" class="form-control" id="ticket" name="ticket" value="{{ $incident->ticket }}">
+                                                <input type="text" class="form-control" id="ticket" name="ticket" readonly value="{{ $incident->ticket }}">
                                               </td>
                                               <td style="width: 20%;">
                                                 <button type="submit"  id="updateButton" class="btn-sm btn-outline-success">Update</button>
