@@ -192,7 +192,8 @@ class IncidentController extends Controller
      */
     public function destroy($id)
     {
-        $incident = Incident::find($id)->first();
+        
+        $incident = Incident::where('id', $id)->first();
         $incident->delete();
         return redirect('/atm');
     }

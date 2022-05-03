@@ -61,6 +61,7 @@
                             <option>Power Problem</option>
                             <option>Pc Core</option>
                             <option>Screen</option>
+                            <option>Shutter</option>
                           </select>
                         </div>
                         <div class="col-md-2">
@@ -522,19 +523,7 @@
         <script src="{{ url('js/jquery.js') }}"></script>
 
         <script>
-          function handleDelete(id,name,problem){
-            var form = document.getElementById('deleteIncidentForm');
-            var message = document.getElementById('deleteMessage');
-            message.innerText = '  ' + name + ' Problem  ' + problem;
-            form.action ='atm/' + id;
-            console.log(form);
-            $('#deleteModal').modal('show');
-            // $(function () {
-            //   $("#deleteButton").click(function () {
-            //       $("#deleteModal").modal("show");
-            //   });
-            // });
-          }
+
           var sidebar = document.getElementById("side");
           var maincotaint = document.getElementById("content");
           window.onload = function() {
@@ -549,6 +538,19 @@
               maincotaint.style.marginTop = "-"+h.toString() + "px";
               maincotaint.style.height = h.toString() + "px";
             })
+          function handleDelete(id,name,problem){
+            var form = document.getElementById('deleteIncidentForm');
+            var message = document.getElementById('deleteMessage');
+            message.innerText = '  ' + name + ' Problem  ' + problem;
+            form.action ='atm/' + id;
+            console.log(form);
+            $('#deleteModal').modal('show');
+            // $(function () {
+            //   $("#deleteButton").click(function () {
+            //       $("#deleteModal").modal("show");
+            //   });
+            // });
+          }  
           function handleUpdate(id,ticket,status){
             var form = document.getElementById('updateIncidentForm');
             var message = document.getElementById('updateMessage');
