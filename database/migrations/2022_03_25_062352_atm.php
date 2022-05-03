@@ -33,6 +33,7 @@ return new class extends Migration
                 $table->integer('ticket')->unique();
                 //$table->foreignId('atm_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
                 //$table->foreign('atm_id')->references('id')->on('atm');
+            
                 $table->timestamps();
             });
         }
