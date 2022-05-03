@@ -40,7 +40,7 @@ class IncidentController extends Controller
             //dd(request()->query('query'));
             $search="true";
             $one="false";
-            $delay="false";
+            $delayT="false";
             $delayActive=" ";
             $searchActive =" active";
             $oneActive =" ";
@@ -50,7 +50,7 @@ class IncidentController extends Controller
                 'atms' => $atms,
                 'search' =>$search,
                 'one' =>$one,
-                'delay' => $delay,
+                'delayT' => $delayT,
                 'delayActive'=>$delayActive,
                 'searchActive' =>$searchActive,
                 'oneActive' =>$oneActive,
@@ -60,7 +60,7 @@ class IncidentController extends Controller
         }elseif($date){
             $search="true";
             $one="false";
-            $delay="false";
+            $delayT="false";
             $delayActive=" ";
             $searchActive =" active";
             $oneActive =" ";
@@ -70,7 +70,7 @@ class IncidentController extends Controller
                 'atms' => $atms,
                 'search' =>$search,
                 'one' =>$one,
-                'delay' => $delay,
+                'delayT' => $delayT,
                 'delayActive'=>$delayActive,
                 'searchActive' =>$searchActive,
                 'oneActive' =>$oneActive,
@@ -80,11 +80,11 @@ class IncidentController extends Controller
         }
         elseif($delay){
             $search="false";
-            $one="true";
-            // $delay="ture";
-            // $delayActive=" active";
+            $one="false";
+            $delayT="ture";
+            $delayActive =" active";
             $searchActive ="";
-            $oneActive =" active";
+            $oneActive =" ";
             $delayTime = $delay;
             // dd( $delayTime);
             $incidents  = Incident::where('status','not solved')->get();
@@ -93,8 +93,8 @@ class IncidentController extends Controller
                 'atms' => $atms,
                 'search' =>$search,
                 'one' =>$one,
-                // 'delay' => $delay,
-                // 'delayActive'=>$delayActive,
+                'delayT' => $delayT,
+                'delayActive'=>$delayActive,
                 'searchActive' =>$searchActive,
                 'oneActive' =>$oneActive,
                 'currentDate2' =>$currentDate2,
@@ -104,7 +104,7 @@ class IncidentController extends Controller
         else{
             $search="false";
             $one="true";
-            $delay="false";
+            $delayT="false";
             $delayActive=" ";
             $searchActive =" ";
             $oneActive =" active";
@@ -114,7 +114,7 @@ class IncidentController extends Controller
               'atms' => $atms,
               'search' =>$search,
               'one' =>$one,
-              'delay' => $delay,
+              'delayT' => $delayT,
               'delayActive'=>$delayActive,
               'searchActive' =>$searchActive,
               'oneActive' =>$oneActive,

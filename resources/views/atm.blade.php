@@ -113,7 +113,7 @@
                             <button class="nav-link {{ $searchActive }}" id="selectDate-tab" data-bs-toggle="tab" data-bs-target="#selectDate" type="button" role="tab" aria-controls="selectDate" aria-selected="{{ $search }}">Search</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="maitainaceDelay-tab" data-bs-toggle="tab" data-bs-target="#maitainaceDelay" type="button" role="tab" aria-controls="maitainaceDelay" aria-selected="false">
+                          <button class="nav-link {{ $delayActive }} " id="maitainaceDelay-tab" data-bs-toggle="tab" data-bs-target="#maitainaceDelay" type="button" role="tab" aria-controls="maitainaceDelay" aria-selected="{{ $delayT }}">
                             Maintainace Delay
                           </button>
                         </li>
@@ -472,7 +472,7 @@
                                         </table>
                                     </div>   
                         </div>
-                        <div class="tab-pane fade " id="maitainaceDelay" role="tabpanel" aria-labelledby="maitainaceDelay-tab" style="padding-top: 2%;">
+                        <div class="tab-pane fade show {{ $delayActive }} " id="maitainaceDelay" role="tabpanel" aria-labelledby="maitainaceDelay-tab" style="padding-top: 2%;">
                           <form class="input-group" action="atm" method="GET" style="margin-bottom: 2%">
                             <div class="row">
                              <div class="col-md-6" style="" >
