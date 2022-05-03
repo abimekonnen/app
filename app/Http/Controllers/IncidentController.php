@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Incident;
 use App\Models\Atm;
+use Carbon\Carbon;
 
 //use Maatwebsite\Excel\Facades\Excel;
 class IncidentController extends Controller
@@ -15,6 +16,9 @@ class IncidentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function currentTime(){
+        return Carbon::now()->toDateTimeString();
+    }
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d');
@@ -22,18 +26,22 @@ class IncidentController extends Controller
     public function index()
     {
         //$data = DB::table('atms')->get();
-        //dd($data);
+         
         // $searchStatus=false;
         // $one=false;
         //dd(date('d-m-y',strtotime("-3 days")));
         $searchQuery = request()->query('query');
         $date = request()->input('date');
+        $delay = request()->query('delayQuery');
         $atms  = Atm::all();
-      
+        $currentDate2 = Carbon::now();
+        $delayTime = 1;
         if($searchQuery){
             //dd(request()->query('query'));
             $search="true";
             $one="false";
+            $delay="false";
+            $delayActive=" ";
             $searchActive =" active";
             $oneActive =" ";
             $incidents  = Incident::where('name','LIKE',"%{$searchQuery}%")->get();
@@ -42,12 +50,18 @@ class IncidentController extends Controller
                 'atms' => $atms,
                 'search' =>$search,
                 'one' =>$one,
+                'delay' => $delay,
+                'delayActive'=>$delayActive,
                 'searchActive' =>$searchActive,
                 'oneActive' =>$oneActive,
+                'currentDate2' =>$currentDate2,
+                'delayTime' => $delayTime
             ]);
         }elseif($date){
             $search="true";
             $one="false";
+            $delay="false";
+            $delayActive=" ";
             $searchActive =" active";
             $oneActive =" ";
             $incidents  = Incident::where('created_at','LIKE',"%{$date}%")->get();
@@ -56,13 +70,42 @@ class IncidentController extends Controller
                 'atms' => $atms,
                 'search' =>$search,
                 'one' =>$one,
+                'delay' => $delay,
+                'delayActive'=>$delayActive,
                 'searchActive' =>$searchActive,
                 'oneActive' =>$oneActive,
+                'currentDate2' =>$currentDate2,
+                'delayTime' => $delayTime
+            ]);
+        }
+        elseif($delay){
+            $search="false";
+            $one="true";
+            // $delay="ture";
+            // $delayActive=" active";
+            $searchActive ="";
+            $oneActive =" active";
+            $delayTime = $delay;
+            // dd( $delayTime);
+            $incidents  = Incident::where('status','not solved')->get();
+            return view('atm',[
+                'incidents'=>$incidents,
+                'atms' => $atms,
+                'search' =>$search,
+                'one' =>$one,
+                // 'delay' => $delay,
+                // 'delayActive'=>$delayActive,
+                'searchActive' =>$searchActive,
+                'oneActive' =>$oneActive,
+                'currentDate2' =>$currentDate2,
+                'delayTime' => $delayTime
             ]);
         }
         else{
             $search="false";
             $one="true";
+            $delay="false";
+            $delayActive=" ";
             $searchActive =" ";
             $oneActive =" active";
             $incidents  = Incident::all();
@@ -71,8 +114,12 @@ class IncidentController extends Controller
               'atms' => $atms,
               'search' =>$search,
               'one' =>$one,
+              'delay' => $delay,
+              'delayActive'=>$delayActive,
               'searchActive' =>$searchActive,
               'oneActive' =>$oneActive,
+              'currentDate2' =>$currentDate2,
+              'delayTime' => $delayTime
              ]);
         }
         // $atms  = Atm::all();

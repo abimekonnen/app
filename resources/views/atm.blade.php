@@ -108,9 +108,14 @@
                           <button class="nav-link" id="five-tab" data-bs-toggle="tab" data-bs-target="#five" type="button" role="tab" aria-controls="five" aria-selected="false">
                             {{ date('d-m-y',strtotime("-4 days"));}}
                           </button>
-                      </li>
+                        </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link {{ $searchActive }}" id="selectDate-tab" data-bs-toggle="tab" data-bs-target="#selectDate" type="button" role="tab" aria-controls="selectDate" aria-selected="{{ $search }}">Search</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="maitainaceDelay-tab" data-bs-toggle="tab" data-bs-target="#maitainaceDelay" type="button" role="tab" aria-controls="maitainaceDelay" aria-selected="false">
+                            Maintainace Delay
+                          </button>
                         </li>
                     </ul>
                     <div class="tab-content text-success" id="myTabContent">
@@ -396,6 +401,8 @@
                             </table>
                           </div>  
                         </div>
+
+
                         <div class="tab-pane fade show {{ $searchActive }}" id="selectDate" role="tabpanel" aria-labelledby="selectDate-tab" style="padding-top: 2%;">
                           {{-- <a class="btn btn-success" href="export">export</a> --}}
                             <form class="input-group" action="atm" method="GET" style="margin-bottom: 2%">
@@ -464,6 +471,63 @@
                                           </tbody>
                                         </table>
                                     </div>   
+                        </div>
+                        <div class="tab-pane fade " id="maitainaceDelay" role="tabpanel" aria-labelledby="maitainaceDelay-tab" style="padding-top: 2%;">
+                          <form class="input-group" action="atm" method="GET" style="margin-bottom: 2%">
+                            <div class="row">
+                             <div class="col-md-6" style="" >
+                               <input type="number" class="form-control" id="delayQuery"
+                                name="delayQuery" style="padding-bottom: 2%;" 
+                                min="1" max="60"
+                                >                                
+                             </div >
+                             <div  class="col-md-1" style="">
+                                <button type="submit" class="btn-sm btn-success">Search</button>
+                             </div>
+                            </div>
+                           </form>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col"  style="width: 5%;">No</th>
+                                <th scope="col" style="width: 20%;">ATM</th>
+                                <th scope="col" style="width: 20%;">Problem</th>
+                                <th scope="col" style="width: 20%;">Registered Date</th>
+                                <th scope="col" style="width: 20%;">Delay Time</th>
+                                <th scope="col" style="width: 15%;">Ticket ID</th>
+                                
+                              </tr>
+                            </thead>
+                          </table>
+                          <div class="overflow-auto "  style="height: 55vmin; margin-bottom: 2%">
+                            <table class="table">
+                            <tbody >
+                            @foreach ($incidents as $index => $incident)
+                                @if ($incident->status == "not solved" && 
+                                date('d-m-y') < $incident->created_at->format('d-m-y') &&
+                                $incident->created_at->diffInDays($currentDate2, false) >= $delayTime
+                                )
+                      
+                                    <tr>
+                                       <th  style="width: 5%;">{{ 1 + $index   }}</th>
+                                        <td style="width: 20%;">{{ $incident->name }}</td>
+                                        <td style="width: 20%;">{{ $incident->problem }}</td>
+                                        <td style="width: 20%; padding-right: 5%">{{ $incident->created_at->format('d-m-y')}}</td>
+                                        <td style="width: 20%;">
+                                    
+                                           {{  $incident->created_at->diffInDays($currentDate2, false)  }}  Days
+                                        </td>
+                                      
+                                        <td scope="col" style="width: 15%;">
+                                          <input type="text" class="form-control" id="ticket" name="ticket" readonly value="{{ $incident->ticket }}">
+                                        </td>
+                                    </tr>
+                                                           
+                                @endif  
+                              @endforeach 
+                              </tbody>
+                            </table>
+                          </div>  
                         </div>
                     </div>
                 </div>
