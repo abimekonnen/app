@@ -62,6 +62,7 @@
                             <option>Pc Core</option>
                             <option>Screen</option>
                             <option>Shutter</option>
+                            <option>UAWS Problem</option>
                           </select>
                         </div>
                         <div class="col-md-2">
@@ -114,7 +115,7 @@
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link {{ $delayActive }} " id="maitainaceDelay-tab" data-bs-toggle="tab" data-bs-target="#maitainaceDelay" type="button" role="tab" aria-controls="maitainaceDelay" aria-selected="{{ $delayT }}">
-                            Maintainace Delay
+                            Mainteinace Delay
                           </button>
                         </li>
                     </ul>
@@ -424,8 +425,8 @@
                                     <th scope="col"  style="width: 5%;">No</th>
                                     <th scope="col" style="width: 20%;">ATM</th>
                                     <th scope="col" style="width: 15%;">Problem</th>
-                                    <th scope="col" style="width: 15%;">Status</th>
-                                    <th scope="col" style="width: 15%;">Register Date</th>
+                                    <th scope="col" style="width: 20%;">Status</th>
+                                    <th scope="col" style="width: 10%;">Register Date</th>
                                     <th scope="col" style="width: 10%;">Ticket ID</th>
                                     <th scope="col" style="width: 20%;">Update Status</th>
                                   </tr>
@@ -442,7 +443,7 @@
                                               <th  style="width: 5%;">{{ 1 + $index  }}</th>
                                               <td style="width: 20%;">{{ $incident->name }}</td>
                                               <td style="width: 15%;">{{ $incident->problem }}</td>
-                                              <td style="width: 14%; padding-right: 5%">
+                                              <td style="width: 20%; padding-right: 5%">
                                                 <select id="status" name="status" class="form-select">
                                                   @if( $incident->status == "not solved"){
                                                     <option selected>Not Solved</option>
@@ -456,7 +457,7 @@
                                                   @endif
                                                 </select>
                                               </td>
-                                              <td style="width: 15%;">{{ $incident->created_at->format('d-m-y') }}</td>
+                                              <td style="width: 10%;">{{ $incident->created_at->format('d-m-y') }}</td>
                                               <td scope="col" style="width: 10%;">
                                                 <input type="text" class="form-control" id="ticket" name="ticket" readonly value="{{ $incident->ticket }}">
                                               </td>
@@ -504,7 +505,6 @@
                             <tbody >
                             @foreach ($incidents as $index => $incident)
                                 @if ($incident->status == "not solved" && 
-                                date('d-m-y') < $incident->created_at->format('d-m-y') &&
                                 $incident->created_at->diffInDays($currentDate2, false) >= $delayTime
                                 )
                       
